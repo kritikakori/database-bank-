@@ -1,0 +1,40 @@
+
+CREATE DATABASE BankDB;
+USE BankDB;
+
+
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(50),
+    Age INT,
+    Gender VARCHAR(10),
+    Address VARCHAR(100),
+    Phone VARCHAR(15)
+);
+
+
+CREATE TABLE Accounts (
+    AccountID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerID INT,
+    AccountType VARCHAR(20),
+    Balance DECIMAL(12,2),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+CREATE TABLE Transactions (
+    TransactionID INT PRIMARY KEY AUTO_INCREMENT,
+    AccountID INT,
+    TransactionDate DATE,
+    Amount DECIMAL(12,2),
+    TransactionType VARCHAR(20),   -- Deposit / Withdrawal / Transfer
+    FOREIGN KEY (AccountID) REFERENCES Accounts(AccountID)
+);
+
+-- Insert Customers
+INSERT INTO Customers (Name, Age, Gender, Address, Phone) VALUES
+('Aman Sharma', 30, 'Male', 'Delhi', '9876543210'),
+('Kritika Kori', 27, 'Female', 'Bhopal', '9876501234'),
+('Rohit Verma', 40, 'Male', 'Indore', '9988776655');
+
+INSERT INTO Accounts (CustomerID, AccountType, Balance) VALUES
+(1, 'Savings', 25000.00),
